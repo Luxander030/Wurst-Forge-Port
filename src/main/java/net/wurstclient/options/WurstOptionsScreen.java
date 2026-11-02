@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.wurstclient.forge.Screens;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;

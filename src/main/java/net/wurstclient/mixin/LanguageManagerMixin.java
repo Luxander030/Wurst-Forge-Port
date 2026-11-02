@@ -16,11 +16,26 @@ import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.wurstclient.WurstClient;
+import net.wurstclient.WurstInitializer;
 
 @Mixin(LanguageManager.class)
 public abstract class LanguageManagerMixin
 	implements SynchronousResourceReloader
 {
+	/**
+	 * Forge port: initializes Wurst on the render thread. The LanguageManager
+	 * is constructed in the MinecraftClient constructor right after Forge has
+	 * constructed all mods (ClientModLoader.begin) and before the first
+	 * resource reload, which is roughly where Fabric Loader would have run
+	 * Wurst's main entrypoint. (Forge's Mixin version doesn't allow injecting
+	 * into the middle of MinecraftClient's constructor directly.)
+	 */
+	@Inject(at = @At("RETURN"), method = "<init>(Ljava/lang/String;)V")
+	private void onInit(String languageCode, CallbackInfo ci)
+	{
+		WurstInitializer.initializeWurst();
+	}
+	
 	@Inject(at = @At("HEAD"),
 		method = "reload(Lnet/minecraft/resource/ResourceManager;)V")
 	private void onReload(ResourceManager manager, CallbackInfo ci)

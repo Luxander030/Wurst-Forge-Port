@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.wurstclient.forge.Screens;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -115,7 +115,7 @@ public abstract class GameMenuScreenMixin extends Screen
 		wurstOptionsButton = ButtonWidget
 			.builder(buttonText, b -> openWurstOptions())
 			.dimensions(buttonX, buttonY, buttonWidth, buttonHeight).build();
-		buttons.add(wurstOptionsButton);
+		addDrawableChild(wurstOptionsButton);
 	}
 	
 	@Unique

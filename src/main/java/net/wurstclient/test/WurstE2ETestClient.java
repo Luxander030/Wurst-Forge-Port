@@ -13,16 +13,14 @@ import java.time.Duration;
 
 import org.spongepowered.asm.mixin.MixinEnvironment;
 
-import net.fabricmc.api.ModInitializer;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.AccessibilityOnboardingScreen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 
-public final class WurstE2ETestClient implements ModInitializer
+public final class WurstE2ETestClient
 {
-	@Override
 	public void onInitialize()
 	{
 		if(System.getProperty("wurst.e2eTest") == null)

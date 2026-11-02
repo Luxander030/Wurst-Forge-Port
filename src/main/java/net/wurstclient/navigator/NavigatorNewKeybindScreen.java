@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 import org.lwjgl.glfw.GLFW;
 
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.wurstclient.forge.Screens;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;

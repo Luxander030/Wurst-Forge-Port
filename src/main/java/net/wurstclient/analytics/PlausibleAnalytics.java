@@ -23,14 +23,11 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.Version;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.resource.language.LanguageManager;
 import net.minecraft.client.world.ClientWorld;
+import net.wurstclient.forge.ForgePlatform;
 
 /**
  * An implementation of the Plausible Events API for privacy-friendly
@@ -70,11 +67,7 @@ public final class PlausibleAnalytics
 		sessionProp("version", getVersion("wurst"));
 		sessionProp("short_version", getShortVersion("wurst"));
 		sessionProp("mc_version", getVersion("minecraft"));
-		sessionProp("fabric_api_version", getVersion("fabric-api"));
-		sessionProp("fabric_loader_version", getVersion("fabricloader"));
-		sessionProp("modmenu_version", getVersion("modmenu"));
-		sessionProp("sodium_version", getVersion("sodium"));
-		sessionProp("sinytra_connector_version", getVersion("connector"));
+		sessionProp("forge_version", getVersion("forge"));
 		
 		Thread thread = new Thread(this::runBackgroundLoop, "Plausible");
 		thread.setDaemon(true);
@@ -83,9 +76,7 @@ public final class PlausibleAnalytics
 	
 	private String getVersion(String modId)
 	{
-		return FabricLoader.getInstance().getModContainer(modId)
-			.map(ModContainer::getMetadata).map(ModMetadata::getVersion)
-			.map(Version::toString).orElse(null);
+		return ForgePlatform.getModVersion(modId);
 	}
 	
 	private String getShortVersion(String modId)
@@ -136,7 +127,7 @@ public final class PlausibleAnalytics
 	
 	private boolean isDebugMode()
 	{
-		return FabricLoader.getInstance().isDevelopmentEnvironment()
+		return ForgePlatform.isDevelopmentEnvironment()
 			|| System.getProperty("wurst.e2eTest") != null;
 	}
 	

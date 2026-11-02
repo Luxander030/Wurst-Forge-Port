@@ -30,3 +30,15 @@ accessible	field	net/minecraft/entity/Entity	movementMultiplier	Lnet/minecraft/u
 accessible	field	net/minecraft/entity/Entity	stepHeight	F
 accessible	field	net/minecraft/item/ArmorItem	toughness	F
 accessible	field	net/minecraft/network/packet/s2c/play/ChunkDeltaUpdateS2CPacket	sectionPos	Lnet/minecraft/util/math/ChunkSectionPos;
+# Forge port: these were previously made accessible by Fabric API's own
+# (transitive) access wideners, which don't exist on Forge.
+accessible	method	net/minecraft/client/render/RenderLayer	of	(Ljava/lang/String;Lnet/minecraft/client/render/VertexFormat;Lnet/minecraft/client/render/VertexFormat$DrawMode;ILnet/minecraft/client/render/RenderLayer$MultiPhaseParameters;)Lnet/minecraft/client/render/RenderLayer$MultiPhase;
+accessible	field	net/minecraft/client/render/RenderPhase	COLOR_PROGRAM	Lnet/minecraft/client/render/RenderPhase$ShaderProgram;
+accessible	field	net/minecraft/client/render/RenderPhase	LINES_PROGRAM	Lnet/minecraft/client/render/RenderPhase$ShaderProgram;
+accessible	field	net/minecraft/client/render/RenderPhase	TRANSLUCENT_TRANSPARENCY	Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible	field	net/minecraft/client/render/RenderPhase	DISABLE_CULLING	Lnet/minecraft/client/render/RenderPhase$Cull;
+accessible	field	net/minecraft/client/render/RenderPhase	LEQUAL_DEPTH_TEST	Lnet/minecraft/client/render/RenderPhase$DepthTest;
+accessible	field	net/minecraft/client/render/RenderPhase	ALWAYS_DEPTH_TEST	Lnet/minecraft/client/render/RenderPhase$DepthTest;
+accessible	field	net/minecraft/client/render/RenderPhase	ALL_MASK	Lnet/minecraft/client/render/RenderPhase$WriteMaskState;
+accessible	field	net/minecraft/client/render/RenderPhase	ITEM_ENTITY_TARGET	Lnet/minecraft/client/render/RenderPhase$Target;
+accessible	field	net/minecraft/client/render/RenderPhase	VIEW_OFFSET_Z_LAYERING	Lnet/minecraft/client/render/RenderPhase$Layering;

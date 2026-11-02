@@ -28,7 +28,7 @@ import org.lwjgl.glfw.GLFW;
 import com.google.gson.JsonObject;
 
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.wurstclient.forge.Screens;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;

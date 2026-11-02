@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 import com.mojang.brigadier.ParseResults;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import net.fabricmc.loader.api.FabricLoader;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Drawable;
@@ -202,7 +202,7 @@ public enum WurstClientTestHelper
 		String count =
 			String.format("%02d", screenshotCounter.incrementAndGet());
 		String filename = count + "_" + name + ".png";
-		File gameDir = FabricLoader.getInstance().getGameDir().toFile();
+		File gameDir = FMLPaths.GAMEDIR.get().toFile();
 		
 		submitAndWait(mc -> ScreenshotRecorder.saveScreenshot(gameDir, filename,
 			mc.getFramebuffer(), message -> {}));

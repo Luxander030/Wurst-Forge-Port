@@ -12,9 +12,6 @@ import java.util.Collections;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.api.metadata.ModMetadata;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.math.BlockPos;
@@ -27,6 +24,7 @@ import net.wurstclient.events.RenderBlockEntityListener;
 import net.wurstclient.events.SetOpaqueCubeListener;
 import net.wurstclient.events.ShouldDrawSideListener;
 import net.wurstclient.events.UpdateListener;
+import net.wurstclient.forge.ForgePlatform;
 import net.wurstclient.hack.Hack;
 import net.wurstclient.mixinterface.ISimpleOption;
 import net.wurstclient.settings.BlockListSetting;
@@ -230,8 +228,7 @@ public final class XRayHack extends Hack implements UpdateListener,
 	 */
 	private String checkOptiFine()
 	{
-		Stream<String> mods = FabricLoader.getInstance().getAllMods().stream()
-			.map(ModContainer::getMetadata).map(ModMetadata::getId);
+		Stream<String> mods = ForgePlatform.getAllModIds();
 		
 		Pattern optifine = Pattern.compile("opti(?:fine|fabric).*");
 		

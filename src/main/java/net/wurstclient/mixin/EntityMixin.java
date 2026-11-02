@@ -32,15 +32,22 @@ public abstract class EntityMixin implements Nameable, EntityLike, CommandOutput
 {
 	/**
 	 * This mixin makes the VelocityFromFluidEvent work, which is used by
-	 * AntiWaterPush. It's set to require 0 because it doesn't work in Forge,
-	 * when using Sinytra Connector.
+	 * AntiWaterPush.
+	 *
+	 * <p>
+	 * Forge port: Forge replaces the body of updateMovementInFluid() with its
+	 * FluidType system, which applies the fluid push velocity inside a lambda
+	 * in updateFluidHeightAndDoFluidPushing(). The lambda's name isn't
+	 * obfuscated, so the method name isn't remapped, but the setVelocity()
+	 * target still is.
 	 */
 	@WrapWithCondition(at = @At(value = "INVOKE",
 		target = "Lnet/minecraft/entity/Entity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V",
 		opcode = Opcodes.INVOKEVIRTUAL,
-		ordinal = 0),
-		method = "updateMovementInFluid(Lnet/minecraft/registry/tag/TagKey;D)Z",
-		require = 0)
+		ordinal = 0,
+		remap = true),
+		method = "lambda$updateFluidHeightAndDoFluidPushing$29(Lnet/minecraftforge/fluids/FluidType;Lorg/apache/commons/lang3/tuple/MutableTriple;)V",
+		remap = false)
 	private boolean shouldSetVelocity(Entity instance, Vec3d velocity)
 	{
 		VelocityFromFluidEvent event = new VelocityFromFluidEvent(instance);

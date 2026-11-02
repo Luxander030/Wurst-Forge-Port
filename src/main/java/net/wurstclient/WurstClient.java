@@ -16,10 +16,9 @@ import java.util.stream.Stream;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.wurstclient.altmanager.AltManager;
 import net.wurstclient.altmanager.Encryption;
 import net.wurstclient.analytics.PlausibleAnalytics;
@@ -148,21 +147,23 @@ public enum WurstClient
 		Path encFolder = Encryption.chooseEncryptionFolder();
 		altManager = new AltManager(altsFile, encFolder);
 		
-		if(FabricLoader.getInstance().isModLoaded("connectormod"))
-		{
-			System.out.println("[Wurst] Applying fixes for Sinytra Connector");
-			HudRenderCallback.EVENT.register(this::onHudRender);
-		}
+		// Forge port: Forge 1.20.1 replaces InGameHud.render() with ForgeGui,
+		// so IngameHudMixin's render hook never runs. Use Forge's own HUD
+		// event instead (this is what upstream did for Sinytra Connector).
+		MinecraftForge.EVENT_BUS.addListener(this::onHudRender);
+		
 	}
 	
 	// Alternative HUD rendering when using Sinytra Connector
-	private void onHudRender(DrawContext context, float tickDelta)
+	
+	private void onHudRender(RenderGuiEvent.Post event)
 	{
-		if(MC.options.debugEnabled)
+		if(MC.options.hudHidden || MC.options.debugEnabled)
 			return;
 		
 		RenderSystem.disableBlend();
-		EventManager.fire(new GUIRenderEvent(context, tickDelta));
+		EventManager.fire(new GUIRenderEvent(event.getGuiGraphics(),
+			event.getPartialTick()));
 		RenderSystem.disableBlend();
 	}
 	

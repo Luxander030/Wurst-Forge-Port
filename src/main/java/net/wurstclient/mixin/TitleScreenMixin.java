@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.fabricmc.fabric.api.client.screen.v1.Screens;
+import net.wurstclient.forge.Screens;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -70,6 +70,34 @@ public abstract class TitleScreenMixin extends Screen
 				b -> client.setScreen(new AltManagerScreen(this,
 					WurstClient.INSTANCE.getAltManager())))
 			.dimensions(width / 2 + 2, realmsButton.getY(), 98, 20).build());
+	}
+	
+	/**
+	 * Forge port: Forge adds its "Mods" button to the Realms row after
+	 * initWidgetsNormal() returns, and moves Realms to the right half. Split
+	 * that row into three buttons so nothing overlaps.
+	 */
+	@Inject(at = @At("RETURN"), method = "init()V")
+	private void onInit(CallbackInfo ci)
+	{
+		if(realmsButton == null || altsButton == null)
+			return;
+		
+		for(ClickableWidget button : Screens.getButtons(this))
+		{
+			if(button == realmsButton || button.getY() != realmsButton.getY()
+				|| !button.getMessage().getString()
+					.equals(I18n.translate("fml.menu.mods")))
+				continue;
+			
+			button.setX(width / 2 - 100);
+			button.setWidth(64);
+			realmsButton.setX(width / 2 - 32);
+			realmsButton.setWidth(64);
+			altsButton.setX(width / 2 + 36);
+			altsButton.setWidth(64);
+			break;
+		}
 	}
 	
 	@Inject(at = @At("RETURN"), method = "tick()V")

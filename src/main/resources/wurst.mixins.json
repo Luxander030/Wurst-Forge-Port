@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [],
   "client": [
-    "AbstractBlockRenderContextMixin",
     "AbstractBlockStateMixin",
     "AbstractSignEditScreenMixin",
     "AllowedAddressResolverMixin",
@@ -18,7 +17,9 @@
     "ChatInputSuggestorMixin",
     "ChatScreenMixin",
     "ChunkOcclusionGraphBuilderMixin",
+    "ChunkRebuildTaskMixin",
     "ClientConnectionMixin",
+    "ClientLoginNetworkHandlerMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerMixin",
     "ClientPlayNetworkHandlerMixin",

@@ -24,7 +24,12 @@ import net.wurstclient.hack.HackList;
 @Mixin(InGameHud.class)
 public class IngameHudMixin
 {
-	@Inject(
+	/**
+	 * Only runs if something renders the vanilla HUD. On Forge, ForgeGui
+	 * overrides render(), so WurstClient fires GUIRenderEvent from Forge's
+	 * RenderGuiEvent.Post instead. require = 0 so this doesn't fail there.
+	 */
+	@Inject(require = 0,
 		at = @At(value = "INVOKE",
 			target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableBlend()V",
 			remap = false,

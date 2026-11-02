@@ -1,0 +1,28 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="GPL-3.0-or-later"
+issueTrackerURL="https://www.wurstclient.net/modmenu-issues/"
+showAsResourcePack=false
+
+[[mods]]
+modId="wurst"
+version="${version}"
+displayName="Wurst Client"
+displayURL="https://www.wurstclient.net/modmenu-homepage/"
+logoFile="assets/wurst/icon.png"
+authors="Alexander01998"
+description='''Wurst Wurst Wurst! (Unofficial Forge port)'''
+
+[[dependencies.wurst]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.wurst]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.20.2)"
+ordering="NONE"
+side="CLIENT"
