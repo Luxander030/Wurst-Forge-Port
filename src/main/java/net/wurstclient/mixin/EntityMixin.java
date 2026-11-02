@@ -40,14 +40,21 @@ public abstract class EntityMixin implements Nameable, EntityLike, CommandOutput
 	 * in updateFluidHeightAndDoFluidPushing(). The lambda's name isn't
 	 * obfuscated, so the method name isn't remapped, but the setVelocity()
 	 * target still is.
+	 *
+	 * <p>
+	 * The lambda is matched by name only, because its signature changed in
+	 * Forge 47.4.16 (MutableTriple -> Entity$FluidCalcs). require = 0 so that
+	 * if a future Forge renames it, only AntiWaterPush breaks instead of the
+	 * whole game crashing on startup.
 	 */
 	@WrapWithCondition(at = @At(value = "INVOKE",
 		target = "Lnet/minecraft/entity/Entity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V",
 		opcode = Opcodes.INVOKEVIRTUAL,
 		ordinal = 0,
 		remap = true),
-		method = "lambda$updateFluidHeightAndDoFluidPushing$29(Lnet/minecraftforge/fluids/FluidType;Lorg/apache/commons/lang3/tuple/MutableTriple;)V",
-		remap = false)
+		method = "lambda$updateFluidHeightAndDoFluidPushing$29",
+		remap = false,
+		require = 0)
 	private boolean shouldSetVelocity(Entity instance, Vec3d velocity)
 	{
 		VelocityFromFluidEvent event = new VelocityFromFluidEvent(instance);

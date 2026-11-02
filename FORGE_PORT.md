@@ -30,7 +30,7 @@ export JAVA_HOME=/path/to/jdk-21
 | Sinytra Connector HUD workaround | removed (not needed natively) |
 | `AbstractBlockRenderContextMixin` (Fabric Indigo renderer, X-Ray opacity) | replaced by `ChunkRebuildTaskMixin`. It wraps Forge's `BakedModel.getRenderTypes()` call to put every block on the translucent layer, and wraps `renderBatched()` so non-ore blocks get an `AlphaScalingVertexConsumer` that scales vertex alpha. Vanilla `RenderLayers.getBlockLayer` (which upstream's `RenderLayersMixin` hooks) isn't used by Forge's chunk builder. |
 
-## Test status (2026-11-01, macOS arm64)
+## Test status (macOS arm64; built against Forge 47.4.20, E2E run on 47.4.0 and 47.4.20)
 `./gradlew runE2eTest` passes these: title screen + Alt Manager button, world creation,
 **mixin audit (every injection applies)**, AutoMine, Freecam, X-Ray (incl. opacity mode, checked
 visually in the screenshots), `.copyitem`, `.modify`,
@@ -47,8 +47,10 @@ Two upstream tests are timing-sensitive on this machine:
 ## Other Forge-specific changes
 - `EntityMixin` (AntiWaterPush) now targets Forge's fluid-push lambda
   `lambda$updateFluidHeightAndDoFluidPushing$29`, because Forge replaces vanilla's
-  `updateMovementInFluid` body. Lambda numbering can change between Forge versions, so recheck
-  this if you bump `forge_version`.
+  `updateMovementInFluid` body. It's matched **by name only**, because the lambda's signature
+  changed in Forge 47.4.16 (`MutableTriple` became `Entity$FluidCalcs`). Pinning the full signature
+  crashed the game on startup with Forge 47.4.16+. It's also `require = 0`, so if a future Forge
+  renames the lambda, only AntiWaterPush stops working. Checked across Forge 47.4.0–47.4.28.
 - The HUD (Wurst logo, hack list, etc.) is drawn from Forge's `RenderGuiEvent.Post`, because
   `ForgeGui` overrides `InGameHud.render()`.
 - Title screen: Forge puts a "Mods" button on the Realms row, so that row becomes three 64px
