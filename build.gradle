@@ -91,7 +91,7 @@ jar {
 	def archivesName = project.base.archivesName
 	inputs.property("archivesName", archivesName)
 	
-	from("LICENSE.txt") {
+	from("LICENSE") {
 		rename { "LICENSE-${archivesName.get()}.txt" }
 	}
 	

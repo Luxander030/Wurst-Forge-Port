@@ -35,4 +35,4 @@ limitations.
 
 Wurst Client is made by [Wurst-Imperium](https://github.com/Wurst-Imperium) and contributors
 (Alexander01998 et al.). This port is licensed, like the original, under the
-[GNU General Public License v3.0](LICENSE.txt) or later.
+[GNU General Public License v3.0](LICENSE) or later.
