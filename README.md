@@ -1,110 +1,38 @@
-# Wurst Client v7
+# Wurst-Forge-Port
+A forge port of the client Wurst, ported over using Claude Code's Opus 5.5
 
-![Wurst Client logo](https://img.wimods.net/github.com/Wurst-Imperium/Wurst7?to=https://wurst.wiki/_media/logo/wurst_758x192.webp)
-
-- **Downloads:** [https://www.wurstclient.net/download/](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwww.wurstclient.net%2Fdownload%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo)
-
-- **Installation guide:** [https://www.wurstclient.net/tutorials/how-to-install/](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwww.wurstclient.net%2Ftutorials%2Fhow-to-install%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo)
-
-- **Feature list:** [https://www.wurstclient.net/](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwww.wurstclient.net%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo)
-
-- **Wiki:** [https://wurst.wiki/](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwurst.wiki%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo)
-
-- **Forum:** [https://wurstforum.net/](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwurstforum.net%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo)	
-
-- **Twitter/X:** [https://x.com/Wurst_Imperium](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https://x.com/Wurst_Imperium)
-
-- **YouTube:** [https://www.youtube.com/@Alexander01998](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https://www.youtube.com/@Alexander01998)
-
-- **Donations/Perks:** [https://ko-fi.com/wurst](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https://ko-fi.com/wurst)
+This is an **unofficial** port of [Wurst Client](https://github.com/Wurst-Imperium/Wurst7) v7.50.3
+for Minecraft 1.20.1 from Fabric to **Minecraft Forge 1.20.1 (47.x)**. It is not affiliated with
+or supported by Wurst-Imperium; please don't report problems with this port to them.
 
 ## Installation
 
-Wurst 7 can be installed just like any other Fabric mod. Here are the basic installation steps:
+1. Install [Minecraft Forge](https://files.minecraftforge.net/) 1.20.1 (47.x).
+2. Put `Wurst-Client-Forge-v7.50.3-MC1.20.1-Forge.jar` in your `mods` folder.
+   Fabric API is **not** needed; MixinExtras is bundled in the jar.
 
-1. Run the Fabric installer.
-2. Add the Wurst Client and Fabric API to your mods folder.
+You need a licensed copy of Minecraft Java Edition. Wurst is a cheat client, not a pirate client.
 
-Please refer to the [full Wurst 7 installation guide](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwww.wurstclient.net%2Ftutorials%2Fhow-to-install%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo) if you need more detailed instructions or run into any problems.
+## Building
 
-Also, this should be obvious, but you do need to have a licensed copy of Minecraft Java Edition in order to use Wurst. Wurst is a cheat client, not a pirate client.
+Gradle has to run on **Java 21**. The mod itself targets Java 17, which Gradle downloads on its own.
 
-## Development Setup
-
-> [!IMPORTANT]
-> Make sure you have [Java Development Kit 17](https://adoptium.net/?variant=openjdk17&jvmVariant=hotspot) installed. It won't work with other versions.
-
-### Development using Eclipse
-
-1. Clone the repository:
-
-   ```pwsh
-   git clone https://github.com/Wurst-Imperium/Wurst7.git
-   cd Wurst7
-   ```
-
-2. Generate the sources:
-
-   ```pwsh
-   ./gradlew genSources eclipse
-   ```
-
-3. In Eclipse, go to `Import...` > `Existing Projects into Workspace` and select this project.
-
-4. **Optional:** Right-click on the project and select `Properties` > `Java Code Style`. Then under `Clean Up`, `Code Templates`, `Formatter`, import the respective files in the `codestyle` folder.
-
-### Development using VSCode / Cursor
-
-> [!TIP]
-> You'll probably want to install the [Extension Pack for Java](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fmarketplace.visualstudio.com%2Fitems%3FitemName%3Dvscjava.vscode-java-pack) to make development easier.
-
-1. Clone the repository:
-
-   ```pwsh
-   git clone https://github.com/Wurst-Imperium/Wurst7.git
-   cd Wurst7
-   ```
-
-2. Generate the sources:
-
-   ```pwsh
-   ./gradlew genSources vscode
+```sh
+git clone https://github.com/Luxander030/Wurst-Forge-Port.git
+cd Wurst-Forge-Port
+export JAVA_HOME=/path/to/jdk-21
+./gradlew build        # -> build/libs/Wurst-Client-Forge-v7.50.3-MC1.20.1-Forge.jar
+./gradlew runClient    # start a dev client
+./gradlew runE2eTest   # boot the game and run Wurst's end-to-end test
 ```
 
-3. Open the `Wurst7` folder in VSCode / Cursor.
+## What changed vs. upstream
 
-4. **Optional:** In the VSCode settings, set `java.format.settings.url` to `https://raw.githubusercontent.com/Wurst-Imperium/Wurst7/master/codestyle/formatter.xml` and `java.format.settings.profile` to `Wurst-Imperium`.
+See [FORGE_PORT.md](FORGE_PORT.md) for everything changed for Forge, test status and known
+limitations.
 
-### Development using IntelliJ IDEA
+## Credits & license
 
-I don't use or recommend IntelliJ, but the commands to run would be:
-
-```pwsh
-git clone https://github.com/Wurst-Imperium/Wurst7.git
-cd Wurst7
-./gradlew genSources idea --no-configuration-cache
-```
-
-**Note:** IntelliJ IDEA is [not yet compatible](https://github.com/FabricMC/fabric-loom/issues/1349) with Gradle's configuration cache. You will run into issues.
-
-Possible workarounds:
-- Turn off args files ([this setting](https://i.imgur.com/zHqIOYg.png)). Won't work for some users because of a command length limit.
-- Add `--no-configuration-cache` to all of your Gradle commands.
-
-## Contributing
-
-Please always [contact me](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https%3A%2F%2Fwww.wurstclient.net%2Fcontact%2F%3Futm_source%3DGitHub%26utm_medium%3DWurst7%2Brepo) before opening a Pull Request. Any method works. That way we can discuss your ideas early and avoid wasting your time working on unwanted features or having to make lots of changes later.
-
-We also have [contributing guidelines](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https://github.com/Wurst-Imperium/Wurst7/blob/master/CONTRIBUTING.md) to help you get started.
-
-## Translations
-
-To enable translations in-game, go to Wurst Options > Translations > ON.
-
-The preferred way to submit translations is through a Pull Request here on GitHub. The translation files are located in [this folder](https://go.wimods.net/from/github.com/Wurst-Imperium/Wurst7?to=https://github.com/Wurst-Imperium/Wurst7/tree/master/src/main/resources/assets/wurst/translations).
-
-Names of features (hacks/commands/etc.) should always be kept in English. This ensures that everyone can use the same commands, keybinds, etc. regardless of their language setting. It also makes it easier to communicate with someone who uses Wurst in a different language.
-
-## License
-
-This code is licensed under the GNU General Public License v3. **You can only use this code in open-source clients that you release under the same license! Using it in closed-source/proprietary clients is not allowed!**
+Wurst Client is made by [Wurst-Imperium](https://github.com/Wurst-Imperium) and contributors
+(Alexander01998 et al.). This port is licensed, like the original, under the
+[GNU General Public License v3.0](LICENSE.txt) or later.

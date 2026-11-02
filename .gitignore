@@ -34,3 +34,12 @@ hs_err_pid*
 *.pyc
 
 desktop.ini
+
+# from the GitHub Gradle template
+.gradle
+**/build/
+!**/src/**/build/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
